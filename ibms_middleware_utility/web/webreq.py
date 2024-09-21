@@ -1,7 +1,13 @@
+from typing import Union
+from ibms_middleware_utility.logger_config import setup_logging
+
 import requests
 from requests.exceptions import HTTPError, Timeout, RequestException
 import logging
 
+# Setup logging at the start of the module
+setup_logging("logs", "app.log") # TODO: path should be loaded from configuration file
+logger = logging.getLogger(__name__)
 
 class WebRequests:
     """
@@ -63,7 +69,7 @@ class WebRequests:
         if self.api_key:
             self.headers['X-API-Key'] = self.api_key
 
-    def send_request(self):
+    def send_request(self) -> Union[dict, str]:
         """
         Sends the HTTP request using the provided parameters and handles the response.
 
@@ -80,7 +86,7 @@ class WebRequests:
             Exception: For any other non-HTTP related exceptions.
         """
         try:
-            logging.info(f"Sending {self.method} request to {self.url}")
+            logger.info(f"Sending {self.method} request to {self.url}")
 
             # Perform the HTTP request based on the method
             response = requests.request(
@@ -104,15 +110,15 @@ class WebRequests:
                 return response.text
 
         except HTTPError as http_err:
-            logging.error(f"HTTP error occurred: {http_err}")
+            logger.error(f"HTTP error occurred: {http_err}")
             raise
         except Timeout as timeout_err:
-            logging.error(f"Request timed out: {timeout_err}")
+            logger.error(f"Request timed out: {timeout_err}")
             raise
         except RequestException as req_err:
-            logging.error(f"Error occurred while making request: {req_err}")
+            logger.error(f"Error occurred while making request: {req_err}")
             raise
         except Exception as err:
-            logging.error(f"An unexpected error occurred: {err}")
+            logger.error(f"An unexpected error occurred: {err}")
             raise
 
