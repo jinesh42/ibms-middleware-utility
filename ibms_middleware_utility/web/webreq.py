@@ -5,9 +5,8 @@ import requests
 from requests.exceptions import HTTPError, Timeout, RequestException
 import logging
 
-# Setup logging at the start of the module
-setup_logging("logs", "app.log") # TODO: path should be loaded from configuration file
 logger = logging.getLogger(__name__)
+
 
 class WebRequests:
     """
@@ -121,4 +120,3 @@ class WebRequests:
         except Exception as err:
             logger.error(f"An unexpected error occurred: {err}")
             raise
-
