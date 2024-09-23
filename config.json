@@ -1,0 +1,17 @@
+{
+    "url":"https://api.open-meteo.com/v1/forecast",
+    "method":"GET",
+    "headers":"",
+    "params":{
+        "latitude": 52.52,
+        "longitude": 13.41,
+        "current": ["temperature_2m", "wind_speed_10m"]
+    },
+    "data":"",
+    "json":"",
+    "auth":"",
+    "bearer_token":"",
+    "api_key":"",
+    "timeout":""
+
+}

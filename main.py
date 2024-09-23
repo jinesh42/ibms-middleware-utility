@@ -1,6 +1,7 @@
 import logging
 from ibms_middleware_utility.logger_config import setup_logging
 from ibms_middleware_utility.web.webreq import WebRequests
+import json
 
 def main(config_file):
     """
@@ -24,17 +25,17 @@ def main(config_file):
         # TODO: Run with the loaded configuration
 
         # TODO: Refactor remove following code
-        # To be removed ->
-        params = {
-            "latitude": 52.52,
-            "longitude": 13.41,
-            "current": ["temperature_2m", "wind_speed_10m"],
-        }
-        webreq = WebRequests(url= "https://api.open-meteo.com/v1/forecast", params=params)
+
+        
+        
+        with open('config.json','r') as f:
+            dict_json=json.load(f)
+        
+        webreq = WebRequests(url= dict_json['url'],method=dict_json['method'], params=dict_json['params'])
         response = webreq.send_request()
         if response is not None:
             logger.info(f"Response date: {response}")
-        # To be removed <-
+        
 
     except Exception as e:
         logger.error(f"An error occurred in the main application: {e}", exc_info=True)
