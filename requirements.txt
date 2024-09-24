@@ -1,3 +1,4 @@
 requests
 bacpypes
 argparse
+jsonpath-ng
