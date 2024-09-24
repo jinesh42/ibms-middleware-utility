@@ -1,4 +1,4 @@
 requests
-bacpypes
+bacpypes3
 argparse
 jsonpath-ng

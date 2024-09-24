@@ -35,7 +35,7 @@ def read_json_file(file_path):
         raise
 
 
-def extract_value(json_data, json_path):
+def extract_value_from_json_path(json_data, json_path):
     """
     Extracts a value from the JSON data using a jsonpath-ng expression.
 
