@@ -1,5 +1,7 @@
 import logging
 import argparse
+
+from ibms_middleware_utility.data_translator.translator import DataTransformer
 from ibms_middleware_utility.logger_config import setup_logging
 from ibms_middleware_utility.utils.helper import read_json_file
 from ibms_middleware_utility.web.webreq import WebRequests
@@ -37,6 +39,9 @@ def main(config_file):
         response = webreq.send_request()
         if response is not None:
             logger.info(f"Response date: {response}")
+            translator = DataTransformer(json_data=response, mapping=config.get("mapping"))
+            logger.info(f"transformer's output: {translator.transform_data()}")
+
         # To be removed <-
 
     except Exception as e:
