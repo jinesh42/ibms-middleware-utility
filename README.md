@@ -74,3 +74,8 @@ A middleware application that can interface between edge devices (such as batter
   "interval": 5
 }
 ```
+
+## To launch
+```
+python main.py --config_file_path "config_file.json"
+```
