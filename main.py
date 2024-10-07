@@ -1,6 +1,8 @@
 import logging
 import argparse
+import time
 
+from ibms_middleware_utility.connectors.bacnet_connector import BACnetApp
 from ibms_middleware_utility.data_translator.translator import DataTransformer
 from ibms_middleware_utility.logger_config import setup_logging
 from ibms_middleware_utility.utils.helper import read_json_file
@@ -28,20 +30,32 @@ def main(config_file):
 
         # TODO: Run with the loaded configuration
 
+        bacnet_config = config.get("bacnet", {})
+        bacnet_app = BACnetApp(
+            device_object_name=bacnet_config["device_object_name"],
+            device_id=bacnet_config["device_id"],
+            max_apdu_len=bacnet_config["max_apdu_len"],
+            seg_supported=bacnet_config["seg_supported"],
+            vendor_id=bacnet_config["vendor_id"],
+            ip=bacnet_config["ip"]
+        )
+
         # TODO: Refactor remove following code
         # To be removed ->
-        params = {
-            "latitude": 52.52,
-            "longitude": 13.41,
-            "current": ["temperature_2m", "wind_speed_10m"],
-        }
-        webreq = WebRequests(url="https://api.open-meteo.com/v1/forecast", params=params)
+        webrequest_config = config.get("webreq", {})
+        webreq = WebRequests(url=webrequest_config.get("url"), params=webrequest_config.get("params"))
         response = webreq.send_request()
+
+        interval = config.get("interval")
+        
         if response is not None:
             logger.info(f"Response date: {response}")
             translator = DataTransformer(json_data=response, mapping=config.get("mapping"))
-            logger.info(f"transformer's output: {translator.transform_data()}")
-
+            transform_data = translator.transform_data()
+            logger.info(f"transformer's output: {transform_data}")
+            while 1:
+                bacnet_app.broadcast_data(transform_data)
+                time.sleep(interval)
         # To be removed <-
 
     except Exception as e:
