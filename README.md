@@ -18,31 +18,59 @@ A middleware application that can interface between edge devices (such as batter
   },
   "mapping": {
     "latitude": {
-      "bacnet_point": "analogInput.1.presentValue",
       "json_path": "$.latitude",
-      "object_type": "AnalogInput"
+	  "bacnet_class": "AnalogValueObject",
+	  "bacnet_params": {
+		"objectIdentifier": 1,
+		"objectName": "Latitude Sensor",
+		"units": "degreesAngular"
+	  }
     },
     "longitude": {
-      "bacnet_point": "analogInput.2.presentValue",
       "json_path": "$.longitude",
-      "object_type": "AnalogInput"
+      "bacnet_class": "AnalogValueObject",
+	  "bacnet_params": {
+		"objectIdentifier": 2,
+		"objectName": "Longitude Sensor",
+		"units": "degreesAngular"
+	  }
     },
     "temperature": {
-      "bacnet_point": "analogInput.3.presentValue",
       "json_path": "$.current.temperature_2m",
-      "object_type": "AnalogInput"
+      "bacnet_class": "AnalogValueObject",
+	  "bacnet_params": {
+		"objectIdentifier": 3,
+		"objectName": "Temperature Sensor",
+		"units": "degreesCelsius"
+	  }
     },
     "wind_speed": {
-      "bacnet_point": "analogInput.4.presentValue",
       "json_path": "$.current.wind_speed_10m",
-      "object_type": "AnalogInput"
+      "bacnet_class": "AnalogValueObject",
+	  "bacnet_params": {
+		"objectIdentifier": 4,
+		"objectName": "Wind Sensor",
+		"units": "kilometersPerHour"
+	  }
     },
     "flag": {
-      "bacnet_point": "binaryInput.1.presentValue",
       "json_path": "$.current.time",
-      "object_type": "BinaryInput",
+      "bacnet_class": "BinaryValueObject",
+	  "bacnet_params": {
+		"objectIdentifier": 5,
+		"objectName": "Flag Sensor"
+	  },
       "transformation_function": "check_if_min_even"
     }
-  }
+  },
+  "bacnet": {
+    "device_object_name": "Test Device",
+    "device_id": 1234,
+    "max_apdu_len": 1476,
+    "seg_supported": "segmentedBoth",
+    "vendor_id": 15,
+    "ip": "192.168.1.103:"
+  },
+  "interval": 5
 }
 ```
