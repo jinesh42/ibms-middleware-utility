@@ -22,7 +22,8 @@ A middleware application that can interface between edge devices (such as batter
 	  "bacnet_class": "AnalogValueObject",
 	  "bacnet_params": {
 		"objectIdentifier": 1,
-		"objectName": "Latitude Sensor",
+		"objectName": "latitude",
+		"description": "Latitude Sensor Value",
 		"units": "degreesAngular"
 	  }
     },
@@ -31,7 +32,8 @@ A middleware application that can interface between edge devices (such as batter
       "bacnet_class": "AnalogValueObject",
 	  "bacnet_params": {
 		"objectIdentifier": 2,
-		"objectName": "Longitude Sensor",
+		"objectName": "longitude",
+		"description": "Longitude Sensor Value",
 		"units": "degreesAngular"
 	  }
     },
@@ -40,7 +42,8 @@ A middleware application that can interface between edge devices (such as batter
       "bacnet_class": "AnalogValueObject",
 	  "bacnet_params": {
 		"objectIdentifier": 3,
-		"objectName": "Temperature Sensor",
+		"objectName": "temperature",
+		"description": "Temperature Sensor Value",
 		"units": "degreesCelsius"
 	  }
     },
@@ -49,7 +52,8 @@ A middleware application that can interface between edge devices (such as batter
       "bacnet_class": "AnalogValueObject",
 	  "bacnet_params": {
 		"objectIdentifier": 4,
-		"objectName": "Wind Sensor",
+		"objectName": "wind_speed",
+		"description": "Wind Sensor Value",
 		"units": "kilometersPerHour"
 	  }
     },
@@ -58,7 +62,8 @@ A middleware application that can interface between edge devices (such as batter
       "bacnet_class": "BinaryValueObject",
 	  "bacnet_params": {
 		"objectIdentifier": 5,
-		"objectName": "Flag Sensor"
+		"objectName": "flag",
+		"description": "Flag Sensor Value"
 	  },
       "transformation_function": "check_if_min_even"
     }
@@ -69,7 +74,7 @@ A middleware application that can interface between edge devices (such as batter
     "max_apdu_len": 1476,
     "seg_supported": "segmentedBoth",
     "vendor_id": 15,
-    "ip": "192.168.1.103:"
+    "ip": "192.168.1.103/24"
   },
   "interval": 5
 }
